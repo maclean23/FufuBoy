@@ -4,9 +4,10 @@ pipeline {
     stages {
         stage('compile') {
             steps {
-                echo 'compile stage'
-                git branch: 'main', url: 'https://github.com/maclean23/FufuBoy.git'
+                echo 'compilng stage'
+                git branch: 'main', url: 'git@github.com:maclean23/FufuBoy.git'
                 sh 'mvn compile'
+        
             }
         }
         stage('test') {
@@ -17,46 +18,15 @@ pipeline {
         }
         stage('package') {
             steps {
-                echo 'package'
+                echo 'package stage'
                 sh 'mvn package'
             }
         }
-        stage('Publish to Nexus') {
+        stage('move to dockerfile') {
             steps {
-                echo 'Publishing artificat'
+                echo 'creating dockerfile'
+                sh 'touch dockerfile'
             }
         }
-        stage('Aqua-scan') {
-            steps {
-                echo 'scanning for security'
-            }
-        }
-        stage('Docker-build') {
-            steps {
-                echo 'Creating image'
-            }
-        }
-        stage('Push image to dockerhub') {
-            steps {
-                echo 'pushing image to dockerhub'
-            }
-        }
-        stage('Deploy on Dev Enviornment') {
-            steps {
-                echo 'Deploying on Dev enviornment'
-            }
-        }
-        stage('Deploy on Pre-Prod Enviornment') {
-            steps {
-                echo 'Deploying on pre-prod environment'
-            }
-        }
-        stage('Deploy on Prod Enviornment') {
-            steps {
-                echo 'Deploying on production enviornment'
-                
-            }
-        }
-    
     }
-}    
+}
